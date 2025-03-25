@@ -34,21 +34,26 @@ type SSD1305 struct {
 	frame_buffer []byte
 }
 
+// InitDisplay prepared the internal struct and the framebuffer of the display
 func (v *SSD1305) InitDisplay(i2c *i2c.Options, width byte, height byte) {
 	v = &SSD1305{}
 	v.height = height
 	v.width = width
 	v.frame_buffer = make([]byte, (v.height/8)*v.width+1)
+
+	_init(i2c)
 }
 
-/*
-func write_cmd(i2c *i2c.I2C, cmd byte) error {
+// private function for sending commands to the display
+func write_cmd(i2c *i2c.Options, cmd byte) error {
 	_, err := i2c.WriteBytes([]byte{0x80, cmd})
 	if err != nil {
-		fmt.Println(err)
-		lg.Fatal(err)
 		return err
 	}
 	return nil
 }
-*/
+
+func _init(i2c *i2c.Options) error {
+	write_cmd(i2c, 0x00)
+	return nil
+}
