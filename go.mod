@@ -1,4 +1,4 @@
-module dhufe/go-ssd1305
+module go-ssd1305
 
 go 1.22.9
 
