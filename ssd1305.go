@@ -41,7 +41,7 @@ func (v *SSD1305) InitDisplay(i2c *i2c.Options, width byte, height byte) {
 	v.width = width
 	v.frame_buffer = make([]byte, (v.height/8)*v.width+1)
 
-	_init(i2c)
+	_init(i2c, v)
 }
 
 // private function for sending commands to the display

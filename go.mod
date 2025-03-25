@@ -1,6 +1,6 @@
 module dhufe/go-ssd1305
 
-go 1.24.1
+go 1.22.9
 
 require github.com/googolgl/go-i2c v0.1.1
 
