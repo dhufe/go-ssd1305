@@ -15,5 +15,11 @@ func main() {
 	// Set log level: 0 - Panic, 1 - Fatal, 2 - Error, 3 - Warning, 4 - Info, 5 - Debug
 	i2cDevice.Log.SetLevel(5)
 
-	_, err = InitDisplay(i2cDevice, 128, 32)
+	fbuf, err := InitDisplay(i2cDevice, 128, 32)
+
+	for i := range fbuf.frame_buffer {
+		fbuf.frame_buffer[i] = 255
+	}
+
+	err = Write_scr(i2cDevice, fbuf)
 }
