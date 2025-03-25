@@ -1,4 +1,4 @@
-package gossd1305
+package main
 
 import (
 	i2c "github.com/googolgl/go-i2c"

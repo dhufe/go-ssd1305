@@ -1,4 +1,4 @@
-module go-ssd1305
+module gossd1305
 
 go 1.22.9
 
