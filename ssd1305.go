@@ -1,4 +1,4 @@
-package main
+package gossd1305
 
 import (
 	i2c "github.com/googolgl/go-i2c"
@@ -35,13 +35,13 @@ type SSD1305 struct {
 }
 
 // InitDisplay prepared the internal struct and the framebuffer of the display
-func (v *SSD1305) InitDisplay(i2c *i2c.Options, width byte, height byte) {
-	v = &SSD1305{}
+func InitDisplay(i2c *i2c.Options, width byte, height byte) (*SSD1305, error) {
+	v := &SSD1305{}
 	v.height = height
 	v.width = width
 	v.frame_buffer = make([]byte, (v.height/8)*v.width+1)
 
-	_init(i2c, v)
+	return v, _init(i2c, v)
 }
 
 // private function for sending commands to the display
