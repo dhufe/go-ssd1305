@@ -53,7 +53,53 @@ func write_cmd(i2c *i2c.Options, cmd byte) error {
 	return nil
 }
 
-func _init(i2c *i2c.Options) error {
+func Write_scr(i2c *i2c.Options, v *SSD1305) error {
+	err := write_cmd(i2c, SET_COL_ADDR)
+	err = write_cmd(i2c, 4)
+	err = write_cmd(i2c, 131)
+	err = write_cmd(i2c, SET_PAGE_ADDR)
+	err = write_cmd(i2c, 0)
+	err = write_cmd(i2c, 3)
+	_, err = i2c.WriteBytes(v.frame_buffer)
+	return err
+}
+
+func _init(i2c *i2c.Options, v *SSD1305) error {
+	write_cmd(i2c, SET_DISP|0x00)
+	write_cmd(i2c, SET_DISP_CLK_DIV)
+	write_cmd(i2c, 0x80)
+	write_cmd(i2c, SET_SEG_REMAP|0x01)
+	write_cmd(i2c, SET_MUX_RATIO)
+	write_cmd(i2c, 0x1F)
+	write_cmd(i2c, SET_DISP_OFFSET)
 	write_cmd(i2c, 0x00)
+	write_cmd(i2c, SET_MASTER_CONFIG)
+	write_cmd(i2c, 0x8E)
+	write_cmd(i2c, SET_AREA_COLOR)
+	write_cmd(i2c, 0x05)
+	write_cmd(i2c, SET_MEM_ADDR)
+	write_cmd(i2c, 0x00)
+	write_cmd(i2c, SET_DISP_START_LINE)
+	write_cmd(i2c, 0x2E)
+	write_cmd(i2c, SET_COMSCAN_DEC)
+	write_cmd(i2c, SET_COM_PIN_CFG)
+	write_cmd(i2c, 0x12)
+	write_cmd(i2c, SET_LUT)
+	write_cmd(i2c, 0x3F)
+	write_cmd(i2c, 0x3F)
+	write_cmd(i2c, 0x3F)
+	write_cmd(i2c, 0x3F)
+	write_cmd(i2c, SET_CONTRAST)
+	write_cmd(i2c, 0xFF)
+	write_cmd(i2c, SET_PRECHARGE)
+	write_cmd(i2c, 0xD2)
+	write_cmd(i2c, SET_VCOM_DESEL)
+	write_cmd(i2c, 0x34)
+	write_cmd(i2c, SET_NORM_INV)
+	write_cmd(i2c, SET_ENTIRE_ON)
+	write_cmd(i2c, SET_CHARGE_PUMP)
+	write_cmd(i2c, 0x14)
+	write_cmd(i2c, SET_DISP|0x01)
+
 	return nil
 }
