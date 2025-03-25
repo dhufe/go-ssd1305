@@ -29,13 +29,13 @@ const (
 )
 
 type SSD1305 struct {
-	width        byte
-	height       byte
+	width        int
+	height       int
 	frame_buffer []byte
 }
 
 // InitDisplay prepared the internal struct and the framebuffer of the display
-func InitDisplay(i2c *i2c.Options, width byte, height byte) (*SSD1305, error) {
+func InitDisplay(i2c *i2c.Options, width int, height int) (*SSD1305, error) {
 	v := &SSD1305{}
 	v.height = height
 	v.width = width
