@@ -17,8 +17,12 @@ func main() {
 
 	fbuf, err := InitDisplay(i2cDevice, 128, 32)
 
-	for i := range fbuf.frame_buffer {
-		fbuf.frame_buffer[i] = 255
+	for p, i := range fbuf.frame_buffer {
+		if p == 0 {
+			fbuf.frame_buffer[i] = 0x40
+		} else {
+			fbuf.frame_buffer[i] = 0xff
+		}
 	}
 
 	err = Write_scr(i2cDevice, fbuf)
