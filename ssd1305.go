@@ -103,3 +103,11 @@ func _init(i2c *i2c.Options, v *SSD1305) error {
 
 	return nil
 }
+
+func SetPixel(x, y int, bOn bool, v *SSD1305) {
+	if bOn {
+		v.frame_buffer[x+(y/8)*v.width] |= (1 << (y % 8))
+	} else {
+		v.frame_buffer[x+(y/8)*v.width] &= ^(1 << (y % 8))
+	}
+}

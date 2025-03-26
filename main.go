@@ -25,5 +25,11 @@ func main() {
 		}
 	}
 
+	for x := 60; x < 80; x++ {
+		for y := 5; y < 25; y++ {
+			SetPixel(x, y, false, fbuf)
+		}
+	}
+
 	err = Write_scr(i2cDevice, fbuf)
 }
