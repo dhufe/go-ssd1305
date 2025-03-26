@@ -17,14 +17,15 @@ func main() {
 
 	fbuf, err := InitDisplay(i2cDevice, 128, 32)
 
-	for p, i := range fbuf.frame_buffer {
+	for p := range fbuf.frame_buffer {
 		if p == 0 {
-			fbuf.frame_buffer[i] = 0x40
+			fbuf.frame_buffer[p] = 0x40
 		} else {
-			fbuf.frame_buffer[i] = 0xff
+			fbuf.frame_buffer[p] = 0xff
 		}
 	}
 
+	// Test SetPixel ;)
 	for x := 60; x < 80; x++ {
 		for y := 5; y < 25; y++ {
 			SetPixel(x, y, false, fbuf)
