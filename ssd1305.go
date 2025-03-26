@@ -111,3 +111,48 @@ func SetPixel(x, y int, bOn bool, v *SSD1305) {
 		v.frame_buffer[x+(y/8)*v.width] &= ^(1 << (y % 8))
 	}
 }
+
+func DrawLine(x1, y1, x2, y2, bOn bool, v *SSD1305) {
+	var steep byte = abs(y2-y1) > abs(x2-x1)
+	var dx, dy byte
+	var err int
+	var ystep int
+
+	if steep {
+		swap(x1, y1)
+		swap(x2, y2)
+	}
+
+	if x1 > x2 {
+		swap(x1, x2)
+		swap(y1, y2)
+	}
+
+	// glcd_update_bbox( x0, y0, x1, y1 );
+
+	dx = x2 - x1
+	dy = abs(y2 - y1)
+
+	err = dx / 2
+
+	if y1 < y2 {
+		ystep = 1
+	} else {
+		ystep = -1
+	}
+
+	for x1 <= x2 {
+		// for (; x0<=x1; x0++) {
+		if steep {
+			SetPixel(y1, x1, bOn, v)
+		} else {
+			SetPixel(x1, y1, bOn, v)
+		}
+		err -= dy
+		if err < 0 {
+			y0 += ystep
+			err += dx
+		}
+		x1++
+	}
+}
